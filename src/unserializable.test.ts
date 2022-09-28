@@ -1,6 +1,20 @@
 import { unserializable } from './unserializable';
 
 describe('unserializable', () => {
+  it('returns a frozen value', () => {
+    expect(Object.isFrozen(unserializable())).toBe(true);
+  });
+
+  it('cannot be unpoisoned', () => {
+    const poison = unserializable();
+
+    expect(() => {
+      delete (poison as any).__unserializable__;
+    }).toThrowErrorMatchingInlineSnapshot(
+      `"Cannot delete property '__unserializable__' of #<Object>"`
+    );
+  });
+
   describe('as a standalone value', () => {
     it('prevents serialization', () => {
       expect(() => JSON.stringify(unserializable()))

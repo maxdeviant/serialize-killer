@@ -6,5 +6,5 @@ export const unserializable = (): unknown => {
 
   poison.__unserializable__ = poison;
 
-  return poison;
+  return Object.freeze(poison);
 };
