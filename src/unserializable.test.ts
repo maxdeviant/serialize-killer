@@ -17,12 +17,11 @@ describe('unserializable', () => {
 
   describe('as a standalone value', () => {
     it('prevents serialization', () => {
-      expect(() => JSON.stringify(unserializable()))
-        .toThrowErrorMatchingInlineSnapshot(`
-        "Converting circular structure to JSON
-            --> starting at object with constructor 'Object'
-            --- property '__unserializable__' closes the circle"
-      `);
+      expect(() =>
+        JSON.stringify(unserializable())
+      ).toThrowErrorMatchingInlineSnapshot(
+        `"Object is marked as unserializable."`
+      );
     });
   });
 
@@ -33,22 +32,19 @@ describe('unserializable', () => {
           _: unserializable(),
           hello: 'world',
         })
-      ).toThrowErrorMatchingInlineSnapshot(`
-        "Converting circular structure to JSON
-            --> starting at object with constructor 'Object'
-            --- property '__unserializable__' closes the circle"
-      `);
+      ).toThrowErrorMatchingInlineSnapshot(
+        `"Object is marked as unserializable."`
+      );
     });
   });
 
   describe('as an element in an array', () => {
     it('prevents serialization', () => {
-      expect(() => JSON.stringify(['hello', unserializable(), 'world']))
-        .toThrowErrorMatchingInlineSnapshot(`
-        "Converting circular structure to JSON
-            --> starting at object with constructor 'Object'
-            --- property '__unserializable__' closes the circle"
-      `);
+      expect(() =>
+        JSON.stringify(['hello', unserializable(), 'world'])
+      ).toThrowErrorMatchingInlineSnapshot(
+        `"Object is marked as unserializable."`
+      );
     });
   });
 });
