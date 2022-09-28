@@ -4,8 +4,15 @@
   "repository": "git@github.com:maxdeviant/serialize-killer.git",
   "author": "Marshall Bowers <elliott.codes@gmail.com>",
   "license": "MIT",
-  "description": "",
-  "keywords": [],
+  "description": "Make your objects unserializable.",
+  "keywords": [
+    "serialize",
+    "serialization",
+    "unserializable",
+    "poison",
+    "serial",
+    "killer"
+  ],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
