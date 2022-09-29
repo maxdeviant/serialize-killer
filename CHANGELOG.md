@@ -13,4 +13,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release
 
+[unreleased]: https://github.com/maxdeviant/serialize-killer/compare/v1.0.0...HEAD
 [1.0.0]: https://github.com/maxdeviant/serialize-killer/compare/b5c820a...v1.0.0
