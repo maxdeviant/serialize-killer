@@ -1,6 +1,7 @@
 # serialize-killer
 
 [![npm](https://img.shields.io/npm/v/serialize-killer.svg?maxAge=3600)](https://www.npmjs.com/package/serialize-killer)
+[![CI](https://github.com/maxdeviant/serialize-killer/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/maxdeviant/serialize-killer/actions/workflows/ci.yml)
 
 `serialize-killer` will make your objects unserializable.
 
