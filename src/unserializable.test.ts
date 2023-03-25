@@ -28,7 +28,7 @@ test('as a standalone value prevents serialization', t => {
   t.throws(() => JSON.stringify(unserializable()), expectUnserializableError);
 });
 
-test('`unserializable `as a top-level value in an object prevents serialization', t => {
+test('as a top-level value in an object prevents serialization', t => {
   t.throws(
     () =>
       JSON.stringify({
