@@ -1,50 +1,47 @@
+import test, { ThrowsExpectation } from 'ava';
 import { unserializable } from './unserializable';
 
-describe('unserializable', () => {
-  it('returns a frozen value', () => {
-    expect(Object.isFrozen(unserializable())).toBe(true);
-  });
+const expectUnserializableError: ThrowsExpectation<TypeErrorConstructor> = {
+  instanceOf: TypeError,
+  message: 'Object is marked as unserializable.',
+};
 
-  it('cannot be unpoisoned', () => {
-    const poison = unserializable();
+test('returns a frozen value', t => {
+  t.true(Object.isFrozen(unserializable()));
+});
 
-    expect(() => {
+test('cannot be unpoisoned', t => {
+  const poison = unserializable();
+
+  t.throws(
+    () => {
       delete (poison as any).__unserializable__;
-    }).toThrowErrorMatchingInlineSnapshot(
-      `"Cannot delete property '__unserializable__' of #<Object>"`
-    );
-  });
+    },
+    {
+      instanceOf: TypeError,
+      message: "Cannot delete property '__unserializable__' of #<Object>",
+    }
+  );
+});
 
-  describe('as a standalone value', () => {
-    it('prevents serialization', () => {
-      expect(() =>
-        JSON.stringify(unserializable())
-      ).toThrowErrorMatchingInlineSnapshot(
-        `"Object is marked as unserializable."`
-      );
-    });
-  });
+test('as a standalone value prevents serialization', t => {
+  t.throws(() => JSON.stringify(unserializable()), expectUnserializableError);
+});
 
-  describe('as a top-level value in an object', () => {
-    it('prevents serialization', () => {
-      expect(() =>
-        JSON.stringify({
-          _: unserializable(),
-          hello: 'world',
-        })
-      ).toThrowErrorMatchingInlineSnapshot(
-        `"Object is marked as unserializable."`
-      );
-    });
-  });
+test('`unserializable `as a top-level value in an object prevents serialization', t => {
+  t.throws(
+    () =>
+      JSON.stringify({
+        _: unserializable(),
+        hello: 'world',
+      }),
+    expectUnserializableError
+  );
+});
 
-  describe('as an element in an array', () => {
-    it('prevents serialization', () => {
-      expect(() =>
-        JSON.stringify(['hello', unserializable(), 'world'])
-      ).toThrowErrorMatchingInlineSnapshot(
-        `"Object is marked as unserializable."`
-      );
-    });
-  });
+test('as an element in an array prevents serialization', t => {
+  t.throws(
+    () => JSON.stringify(['hello', unserializable(), 'world']),
+    expectUnserializableError
+  );
 });

@@ -1,15 +1,14 @@
+import test from 'ava';
 import stringify from 'safe-stable-stringify';
 import { unserializable } from '../unserializable';
 
-describe('`safe-stable-stringify` evasion', () => {
-  it('prevents serialization', () => {
-    expect(() =>
+test('evades serialization by `safe-stable-stringify`', t => {
+  t.throws(
+    () =>
       stringify({
         _: unserializable(),
         hello: 'world',
-      })
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Object is marked as unserializable."`
-    );
-  });
+      }),
+    { instanceOf: TypeError, message: 'Object is marked as unserializable.' }
+  );
 });
